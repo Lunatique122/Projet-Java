@@ -36,7 +36,10 @@ public class Heure {
 	public int getMinute() {
 		return minute;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return ( this.heure + ":" + this.minute ) ;
+	}
 
 }

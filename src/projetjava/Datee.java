@@ -44,6 +44,9 @@ public class Datee {
 	}
 
 
-
+	@Override
+	public String toString() {
+		return ( this.jour + "/" + this.mois + "/" +  this.annee) ;
+	}
 
 }

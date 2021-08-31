@@ -32,11 +32,15 @@ public class Billet {
 	public Datee getDateachat() {
 		return dateachat;
 	}
-	
-	
 
-	
-	
+
+
+
+	@Override
+	public String toString() {
+		return "Billet Réservé par [ " + this.personne.getNom() + " " + this.personne.getPrenom()
+				+ ", Date d'achat : " + this.dateachat + ", Tarif :" + this.tarif.getPrix() + "€ ]";
+	}
 	
 
 }

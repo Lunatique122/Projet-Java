@@ -76,12 +76,16 @@ public class Spectacle {
 	}
 	
 	public void  Afficheseances () {
-		ListIterator<Seance> sean = this.seances.listIterator();
-		while (sean.hasNext())
-		{	 
-			sean.next().afficheseance();
+		for (Seance sean: seances )
+		{
+			System.out.println (sean);
 		}
 	
 	}
-	
+
+
+	@Override
+	public String toString() {
+		return this.Affichespectacle();
+	}
 }

@@ -139,12 +139,10 @@ public class Universite {
 	}
 	
 	public void  Affichepersonnes () {
-		ListIterator<Personne> pers = this.personnes.listIterator();
-		while (pers.hasNext())
-		{	 
-			System.out.println(pers.next());
+		for (Personne pers: personnes )
+		{
+			System.out.println (pers);
 		}
-		
 	}
 
 
@@ -166,14 +164,14 @@ public class Universite {
 	public void AjoutSpectacle (Spectacle spectacle) {
 		Boolean existe = false;
 		ListIterator<Spectacle> spec = this.spectacles.listIterator();
-		while (spec.hasNext())
+		/*while (spec.hasNext())
 		{	if (spectacle.getTitre() == spec.next().getTitre())
 				{	existe = true;	}
-		}
+		}*/
 
 		if(existe == false)
 		{	this.spectacles.add(spectacle);	}
-		else {	System.out.println("Ce spectacle existe déjà et n'a donc pas été ajouté à la liste.");	}
+		else {	System.out.println("Ce spectacle existe deja et n'a donc pas ete ajoute a la liste.");	}
 	}
 
 	public ArrayList <Spectacle> rechercheSpectacle( String nomSpectacle )
@@ -190,12 +188,11 @@ public class Universite {
 		}
 	return spectacles_trouves;
 	}
-	
+
 	public void  Affichespectacles () {
-		ListIterator<Spectacle> spec = this.spectacles.listIterator();
-		while (spec.hasNext())
-		{	 
-			spec.next().Affichespectacle(); 
+		for (Spectacle spec : spectacles )
+		{
+			System.out.println (spec);
 		}
 		
 	}

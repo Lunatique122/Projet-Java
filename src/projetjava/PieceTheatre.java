@@ -10,12 +10,13 @@ public class PieceTheatre extends Spectacle {
 		super(titre, typespec,  association);
 		this.auteur = auteur;
 		this.anneeparution = anneeparution;
+		this.type = type;
 	}
 
 	@Override
 	public String toString() {
-		return "PieceTheatre [auteur=" + auteur + ", anneeparution=" + anneeparution + ", type=" + type + ", titre="
-				+ titre + "]";
+		return "PieceTheatre [auteur=" + auteur + ", titre="
+				+ titre + ", anneeparution=" + anneeparution + ", type=" + type  + "]";
 	}
 
 	public String getAuteur() {
@@ -41,7 +42,5 @@ public class PieceTheatre extends Spectacle {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
 
 }

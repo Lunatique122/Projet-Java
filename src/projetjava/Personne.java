@@ -31,8 +31,11 @@ public class Personne {
 	public int getNumCNI() {
 		return NumCNI;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return String.format("Nom :" + this.Nom + "- Prénom :" + this.Prenom + " - CNI : " + this.NumCNI);
+	}
 	
 
 }

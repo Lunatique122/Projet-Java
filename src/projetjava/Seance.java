@@ -185,8 +185,18 @@ public class Seance {
 		}
 
 	}
+
+	public void  AfficheBillets () {
+		for (Billet billet: billets )
+		{
+			System.out.println (billet);
+		}
+	}
 	
-	
+	@Override
+	public String toString() {
+		return this.afficheseance();
+	}
 	
 }
 
