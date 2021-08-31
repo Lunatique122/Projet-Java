@@ -9,19 +9,20 @@ public class Association {
 	private String mail;
 	private Datee datecrea;
 	private String siteweb;
-	private Etudiant president;
-	private Etudiant tresorier;
+	private Personne president;
+	private Personne tresorier;
 	private Salle salle;
 	private ArrayList<Etudiant> etudiants;
 	
 	
-	public Association(String nom, String categorie, String mail, Datee datecrea, Etudiant president, Etudiant tresorier,
+	public Association(String nom, String categorie, String mail, Personne president, Personne tresorier,
 			Salle salle) {
 		super();
 		this.nom = nom;
 		this.categorie = categorie;
 		this.mail = mail;
-		this.datecrea = datecrea;
+		Datee date = new Datee();
+		this.datecrea = date ;
 		this.president = president;
 		this.tresorier = tresorier;
 		this.salle = salle;
@@ -69,7 +70,7 @@ public class Association {
 	}
 
 
-	public Etudiant getPresident() {
+	public Personne getPresident() {
 		return president;
 	}
 
@@ -79,7 +80,7 @@ public class Association {
 	}
 
 
-	public Etudiant getTresorier() {
+	public Personne getTresorier() {
 		return tresorier;
 	}
 

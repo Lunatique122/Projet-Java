@@ -1,6 +1,7 @@
 package projetjava;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 public class Spectacle {
 	protected final String titre;
@@ -17,8 +18,19 @@ public class Spectacle {
 		this.titre = titre;
 		this.type = type;
 		this.association = association;
+		this.intervenants = new ArrayList<Intervenant>();
+		this.seances = new ArrayList<Seance>();
 	}
+	
+	
 
+
+
+
+
+	public String Affichespectacle() {
+		return "Spectacle [titre=" + titre + ", type=" + type + ", association=" + association + " Nombre de seances =" + seances.size() +"]";
+	}
 
 
 
@@ -54,8 +66,22 @@ public class Spectacle {
 		return seances.size();
 	}
 	
-
 	
-
+	public void  AjoutSeance (Seance seance, Universite univ) {
+		
+		if  (!(seance.SeanceExisteSalle(univ)) && !(seance.SeanceExistSpectacle())){
+			this.seances.add(seance);
+		}
+		
+	}
+	
+	public void  Afficheseances () {
+		ListIterator<Seance> sean = this.seances.listIterator();
+		while (sean.hasNext())
+		{	 
+			sean.next().afficheseance();
+		}
+	
+	}
 	
 }

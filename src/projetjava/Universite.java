@@ -13,6 +13,17 @@ public class Universite {
 	ArrayList <Personne> personnes;
 
 
+	
+
+	public Universite(String nom) {
+		super();
+		this.nom = nom;
+		this.spectacles = new ArrayList<Spectacle>();
+		this.salles = new ArrayList<Salle>();
+		this.tarifs = new ArrayList<Tarif>();
+		this.associations = new ArrayList<Association>();
+		this.personnes = new ArrayList<Personne>();
+	}
 
 	/* Salles */
 	public ArrayList<Salle> getSalles() {
@@ -113,6 +124,28 @@ public class Universite {
 	public int getNbpersonnes() {
 		return this.personnes.size();
 	}
+	
+	public void AjoutPersonne (Personne personne) {
+		Boolean existe = false;
+		ListIterator<Personne> pers = this.personnes.listIterator();
+		while (pers.hasNext())
+		{	if (personne.getNumCNI() == pers.next().getNumCNI())
+				{	existe = true;	}
+		}
+
+		if(existe == false)
+		{	this.personnes.add(personne);	}
+		else {	System.out.println("Cette personne existe deja  et n'a donc pas ete ajoutee a  la liste.");	}
+	}
+	
+	public void  Affichepersonnes () {
+		ListIterator<Personne> pers = this.personnes.listIterator();
+		while (pers.hasNext())
+		{	 
+			System.out.println(pers.next());
+		}
+		
+	}
 
 
 
@@ -145,7 +178,7 @@ public class Universite {
 
 	public ArrayList <Spectacle> rechercheSpectacle( String nomSpectacle )
 	{
-		ArrayList <Spectacle> spectacles_trouves = new ArrayList();
+		ArrayList <Spectacle> spectacles_trouves = new ArrayList<Spectacle>();
 		ListIterator<Spectacle> spec = this.spectacles.listIterator();
 		Spectacle spectacle;
 		while (spec.hasNext())
@@ -156,6 +189,15 @@ public class Universite {
 
 		}
 	return spectacles_trouves;
+	}
+	
+	public void  Affichespectacles () {
+		ListIterator<Spectacle> spec = this.spectacles.listIterator();
+		while (spec.hasNext())
+		{	 
+			spec.next().Affichespectacle(); 
+		}
+		
 	}
 
 

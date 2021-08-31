@@ -3,9 +3,7 @@ package projetjava;
 import java.util.ArrayList;
 
 public class Seance {
-	Concert concert; 
-	Standup santdup; 
-	PieceTheatre piecetheatre; 
+	Spectacle spectacle; 
 	Salle salle;
 	Datee dateseance;
 	Heure heuredebut;
@@ -16,43 +14,33 @@ public class Seance {
 	int nbbillets;
 	
 	
-	public Seance(Concert concert, Salle salle, Datee dateseance, Heure heuredebut, Heure heurefin) {
+	public Seance(Spectacle spectacle, Salle salle, Datee dateseance, Heure heuredebut, Heure heurefin) {
 		super();
-		this.concert = concert;
+		this.spectacle = spectacle;
 		this.salle = salle;
 		this.dateseance = dateseance;
 		this.heuredebut = heuredebut;
 		this.heurefin = heurefin;
 		this.nbplaces = salle.getNbplaces();
 		this.nbplaceslibres = this.nbplaces;
+		this.billets = new ArrayList <Billet>();
+		this.nbbillets = 0;
+		
 	}
 	
-	public Seance(Standup santdup, Salle salle, Datee dateseance, Heure heuredebut, Heure heurefin) {
-		super();
-		this.santdup = santdup;
-		this.salle = salle;
-		this.dateseance = dateseance;
-		this.heuredebut = heuredebut;
-		this.heurefin = heurefin;
-		this.nbplaces = salle.getNbplaces();
-		this.nbplaceslibres = this.nbplaces;
-	}
 	
-	public Seance(PieceTheatre piecetheatre, Salle salle, Datee dateseance, Heure heuredebut, Heure heurefin) {
-		super();
-		this.piecetheatre = piecetheatre;
-		this.salle = salle;
-		this.dateseance = dateseance;
-		this.heuredebut = heuredebut;
-		this.heurefin = heurefin;
-		this.nbplaces = salle.getNbplaces();
-		this.nbplaceslibres = this.nbplaces;
-	}
 
 
 	
+	public String afficheseance() {
+		return "Seance [date=" + dateseance + ", heure de debut=" + heuredebut + ", heure de fin="
+				+ heurefin + ", nombre de places libres=" + nbplaceslibres + " salle="+ salle +"]";
+	}
 
-	
+
+
+
+
 	public Salle getSalle() {
 		return salle;
 	}
@@ -119,51 +107,54 @@ public class Seance {
 
 	
 	
-	public boolean SeanceExistSpectacle (Standup spectacle, Datee date, Heure heuredeb, Heure heurefin) { //Sert à vérifier si pour un spectacle la seance a ajouter se supperpose à une seance déjà prévue.
+	public boolean SeanceExistSpectacle () { //Sert à vérifier si pour un spectacle la seance a ajouter se supperpose à une seance déjà prévue.
 		int i=0;
 		boolean rep = false;
-		Seance seance;
+		Seance seance2;
 		
 		while (i<spectacle.getNbseances() && rep == false) {
 			
-			seance = spectacle.seances.get(i); // pour chaque seance du spectacle 
-			if (seance.dateseance.equals(date)) { //Si la date et la même on vérifie les heures 
-				if ((seance.heuredebut.equals(heuredeb)) || (seance.heurefin.equals(heuredeb))||(seance.heuredebut.equals(heurefin))||(seance.heurefin.equals(heurefin))) { //Pour une seance si son heure de début ou son heure de fin est égale à l'heure de début ou de fin testée il y a supperposition
+			seance2 = spectacle.seances.get(i); // pour chaque seance du spectacle 
+			if (seance2.dateseance.equals(this.getDateseance())) { //Si la date et la même on vérifie les heures 
+				if ((seance2.heuredebut.equals(this.getHeuredebut())) || (seance2.heurefin.equals(this.getHeuredebut()))||(seance2.heuredebut.equals(this.getHeurefin()))||(seance2.heurefin.equals(this.getHeurefin()))) { //Pour une seance si son heure de début ou son heure de fin est égale à l'heure de début ou de fin testée il y a supperposition
 					rep =  true;
 				}
-				else if (!(seance.heuredebut.EstSup(heuredeb)) && (seance.heuredebut.EstSup(heurefin))) { //Pour une seance si son heure de début est inférieure à l'heure de début testée et est supérieur à l'heure de fin c'est qu'elle se trouve entre les deux et donc supperposition des seances
+				else if (!(seance2.heuredebut.EstSup(this.getHeuredebut())) && (seance2.heuredebut.EstSup(this.getHeurefin()))) { //Pour une seance si son heure de début est inférieure à l'heure de début testée et est supérieur à l'heure de fin c'est qu'elle se trouve entre les deux et donc supperposition des seances
 					rep = true;
 				}
-				else if (!(seance.heurefin.EstSup(heuredeb)) && (seance.heurefin.EstSup(heurefin))) { //Pour une seance si son heure de fin est inférieure à l'heure de début testée et est supérieur à l'heure de fin c'est qu'elle se trouve entre les deux et donc supperposition des seances
+				else if (!(seance2.heurefin.EstSup(this.getHeuredebut())) && (seance2.heurefin.EstSup(this.getHeurefin()))) { //Pour une seance si son heure de fin est inférieure à l'heure de début testée et est supérieur à l'heure de fin c'est qu'elle se trouve entre les deux et donc supperposition des seances
 					rep = true;
 				}
 			}
 			i++;
 		}
+		if (rep == true) {
+			System.out.println("Ce creneau est deja utilise pour ce spectacle");
+		}
 		return rep;
 		
 	}
 	
-	public boolean SeanceExisteSalle (Universite universite, Salle salle, Datee date, Heure heuredeb, Heure heurefin ) {
+	public boolean SeanceExisteSalle (Universite universite ) {
 		boolean rep = false; 
 		int i = 0;
 		int j = 0;
-		Seance seance; 
+		Seance seance2; 
 		Spectacle spectacle;
 		
 		while ((i< universite.getNbSpectacles())&& (rep == false) ) { //On passe dans tous les spectacle
 			spectacle = universite.spectacles.get(i);
 			j=0;
 			while ((j<spectacle.getNbseances())&&(rep==false)) {
-				seance = spectacle.seances.get(j); //Pour chaque seance d'un spectacle
-				if((seance.dateseance.equals(date))&&(seance.salle==salle)) { //Si la seance est le mmême jour dans la même salle il faut vérifier les heures
-					if ((seance.heuredebut.equals(heuredeb)) || (seance.heurefin.equals(heuredeb))||(seance.heuredebut.equals(heurefin))||(seance.heurefin.equals(heurefin))) { //Pour une seance si son heure de début ou son heure de fin est égale à l'heure de début ou de fin testée il y a supperposition
+				seance2 = spectacle.seances.get(j); //Pour chaque seance d'un spectacle
+				if((seance2.dateseance.equals(this.getDateseance()))&&(seance2.salle==this.getSalle())) { //Si la seance est le mmême jour dans la même salle il faut vérifier les heures
+					if ((seance2.heuredebut.equals(this.getHeuredebut())) || (seance2.heurefin.equals(this.getHeuredebut()))||(seance2.heuredebut.equals(this.getHeurefin()))||(seance2.heurefin.equals(this.getHeurefin()))) { //Pour une seance si son heure de début ou son heure de fin est égale à l'heure de début ou de fin testée il y a supperposition
 						rep =  true;
 					}
-					else if (!(seance.heuredebut.EstSup(heuredeb)) && (seance.heuredebut.EstSup(heurefin))) { //Pour une seance si son heure de début est inférieure à l'heure de début testée et est supérieur à l'heure de fin c'est qu'elle se trouve entre les deux et donc supperposition des seances
+					else if (!(seance2.heuredebut.EstSup(this.getHeuredebut())) && (seance2.heuredebut.EstSup(this.getHeurefin()))) { //Pour une seance si son heure de début est inférieure à l'heure de début testée et est supérieur à l'heure de fin c'est qu'elle se trouve entre les deux et donc supperposition des seances
 						rep = true;
 					}
-					else if (!(seance.heurefin.EstSup(heuredeb)) && (seance.heurefin.EstSup(heurefin))) { //Pour une seance si son heure de fin est inférieure à l'heure de début testée et est supérieur à l'heure de fin c'est qu'elle se trouve entre les deux et donc supperposition des seances
+					else if (!(seance2.heurefin.EstSup(this.getHeuredebut())) && (seance2.heurefin.EstSup(this.getHeurefin()))) { //Pour une seance si son heure de fin est inférieure à l'heure de début testée et est supérieur à l'heure de fin c'est qu'elle se trouve entre les deux et donc supperposition des seances
 						rep = true;
 					}
 					
@@ -172,15 +163,19 @@ public class Seance {
 			}
 			i++;
 		}
-			
-		
+		if (rep == true) {
+			System.out.println("Ce creneau est deja utilise pour cette salle");
+		}
 		return rep;
 	}
+		
+		
 
-	public void AjoutBillet (Tarif tarif, Personne personne, Seance seance) {
+
+	public void AjoutBillet (Tarif tarif, Personne personne) {
 		if (this.nbplaceslibres > 0) {
 			Datee dateachat = new Datee();
-			Billet nouvbillet = new Billet (tarif, personne, seance, dateachat);
+			Billet nouvbillet = new Billet (tarif, personne, this, dateachat);
 			this.billets.add(nouvbillet );
 			this.nbbillets ++;
 			this.nbplaceslibres --;

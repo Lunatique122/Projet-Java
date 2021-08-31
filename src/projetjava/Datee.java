@@ -1,6 +1,5 @@
 package projetjava;
 
-import java.util.Date;
 
 public class Datee {
 	private int jour;
